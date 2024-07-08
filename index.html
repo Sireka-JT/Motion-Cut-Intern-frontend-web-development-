@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dropdown Search Bar | upCoding</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <style>
+:root {
+  --blue: #9ab3f5;
+  --purple: #9a1663;
+  --white: #ffffff;
+
+  --shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  background-color: var(--blue);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  min-width: 700px;
+  border-radius: 50px;
+  background-color: var(--white);
+}
+
+.dropdown {
+  position: relative;
+  width: 280px;
+  border-radius: 50px;
+  background-color: var(--purple);
+  border: 1px solid var(--white);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.dropdown-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: transparent;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+}
+
+.dropdown-list {
+  display: block;
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  width: 100%;
+  border-radius: 15px;
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--white);
+  transition: max-height 0.5s;
+}
+
+.dropdown-list-item {
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 15px;
+  padding: 1rem 0 1rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.3s ease, margin-left 0.2s ease;
+}
+
+.dropdown-list-item:hover {
+  margin-left: 0.5rem;
+  color: var(--purple);
+}
+
+#list.show {
+  max-height: 300px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  width: 100%;
+  color: var(--purple);
+}
+
+.search-box input {
+  padding: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--purple);
+  border: 0;
+  outline: 0;
+}
+
+.search-box i {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.search-box input::placeholder {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--purple);
+}
+
+    </style>
+  </head>
+  <body>
+    <!-- Search Bar start -->
+    <div class="search-bar">
+      <!-- Dropdown start -->
+      <div class="dropdown">
+        <div id="drop-text" class="dropdown-text">
+          <span id="span">Everything</span>
+          <i id="icon" class="fa-solid fa-chevron-down"></i>
+        </div>
+        <ul id="list" class="dropdown-list">
+          <li class="dropdown-list-item">Everything</li>
+          <li class="dropdown-list-item">Software Development</li>
+          <li class="dropdown-list-item">Web Development</li>
+          <li class="dropdown-list-item">Data Analyst</li>
+          <li class="dropdown-list-item">IT consultant</li>
+          <li class="dropdown-list-item">Network Administrator</li>
+        </ul>
+      </div>
+      <!-- Dropdown ends -->
+
+      <!-- Search box input start -->
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search anything..." />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <!-- Search box input ends -->
+    </div>
+    <!-- Search Bar ends -->
+<script>
+  let dropdownBtnText = document.getElementById("drop-text");
+let span = document.getElementById("span");
+let icon = document.getElementById("icon");
+let list = document.getElementById("list");
+let input = document.getElementById("search-input");
+let listItems = document.querySelectorAll(".dropdown-list-item");
+
+dropdownBtnText.onclick = function () {
+  list.classList.toggle("show");
+  icon.style.rotate = "-180deg";
+};
+
+window.onclick = function (e) {
+  if (
+    e.target.id !== "drop-text" &&
+    e.target.id !== "icon" &&
+    e.target.id !== "span"
+  ) {
+    list.classList.remove("show");
+    icon.style.rotate = "0deg";
+  }
+};
+
+for (item of listItems) {
+  item.onclick = function (e) {
+    span.innerText = e.target.innerText;
+    if (e.target.innerText == "Everything") {
+      input.placeholder = "Search Anything...";
+    } else {
+      input.placeholder = "Search in " + e.target.innerText + "...";
+    }
+  };
+}
+
+</script>
+  </body>
+</html>
